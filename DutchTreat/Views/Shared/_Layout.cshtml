@@ -3,32 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <title>Dutch Treat : @ViewBag.Title</title>
+  <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-  <header>Welcome to Dutch Treat!</header>
-  <menu type="toolbar">
-    <ul>
-      @* The same thing can be achieved using tag helpers
-        that have been added in _ViewImports.html
-    <li><a href="/">Home</a></li>
-    <li><a href="/app/contact">Contact</a></li>
-    <li><a href="/app/about">About</a></li>
-      *@
-      <li><a asp-controller="App" asp-action="Index">Home</a></li>
-      <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
-      <li><a asp-controller="App" asp-action="About">About</a></li>
-
-    </ul>
-  </menu>
-  <section>
+  <header class="container">
+    <h1>Welcome to Dutch Treat!</h1>
+    <menu type="toolbar">
+      <ul>
+        @* The same thing can be achieved using tag helpers
+            that have been added in _ViewImports.html
+        <li><a href="/">Home</a></li>
+        <li><a href="/app/contact">Contact</a></li>
+        <li><a href="/app/about">About</a></li>
+        *@
+        <li><a asp-controller="App" asp-action="Index">Home</a></li>
+        <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
+        <li><a asp-controller="App" asp-action="About">About</a></li>
+      </ul>
+    </menu>
+  </header>
+  <section class="container">
     <h2>@ViewBag.Title</h2>
     @RenderBody()
   </section>
-  <footer>Copyright 2018 Dutch Treat LLC</footer>
-  
+  <footer class="container">
+    <div class="text-center">Copyright 2018 Dutch Treat LLC</div>
+  </footer>
   <!-- javascript generally has stuff that manipulates contents on the website. hence load it towards the end of the page. -->
   <script src="~/lib/jQuery/dist/jquery.min.js"></script>
+  <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="~/js/index.js"></script>
   @* scripts section is not required. if one of the pages creates a section called scripts, then put it here in the layout page
 
