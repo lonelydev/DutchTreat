@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DutchTreat.Services;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace DutchTreat.Controllers
 {
     public class AppController : Controller
     {
+        private readonly IMailService _mailService;
+
+        public AppController(IMailService mailService)
+        {
+            _mailService = mailService;
+        }
         /// <summary>
         /// The name of this method is the name of the View file. 
         /// By convention App controller will have a folder inside Views
@@ -40,12 +46,10 @@ namespace DutchTreat.Controllers
             if (ModelState.IsValid)
             {
                 //send the email
-                
-            }
-            else
-            {
-                //show error
-            }
+                _mailService.SendMessage("eakan@gmail.com", model.Subject, $"From:{model.Name} - {model.Email}, Message: {model.Message}");
+                ViewBag.UserMessage = "Mail Sent";
+                ModelState.Clear();
+            }            
             return View();
         }
 
