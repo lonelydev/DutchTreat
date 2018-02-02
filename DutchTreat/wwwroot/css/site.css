@@ -1,0 +1,88 @@
+﻿body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+/* apply style to input and textarea*/
+input, textarea {
+    font-size: 18px;
+    width: 200px
+}
+
+/* specific rules have more precedence to generic rules
+    it can be placed anywhere in the css file
+*/
+input[type="submit"] {
+    width: auto;
+}
+
+label {
+    font-size: 16px;
+}
+
+#theForm {
+    background-color: lightgrey;
+}
+
+    #theForm input[type=submit] {
+        background-color: green;
+        color: red;
+    }
+
+ul.product-props {
+    list-style-type:none;
+    font-size:small;
+}
+
+/*by default divs take 100% width*/
+.product-info {
+    border: 1px solid grey;
+    display: inline-block; /*need to display many in a line*/
+    padding: 8px 2px; /*space around content and inside margin*/
+    margin: 2px; /*outside space*/
+    width: 450px; /*not good using specific sizes*/
+    background-color: lightgray;
+    border-radius:5px;
+}
+
+.product-info img {
+    margin:3px;
+    float:left; /*makes image available space around the other element in product-info*/
+    border: 1px solid black;
+    max-width:150px;    
+}
+
+/*show the pointer hand when hovering over the item*/
+#loginToggle {
+    cursor:pointer;
+}
+
+.popup-form {
+    padding: 5px;
+    border: 2px black inset;
+    border-radius:5px;
+    display: inline-block; /*make it small enough so that contents can wrap around*/
+}
+    .popup-form input {
+        width: 200px;
+    }
+
+    .popup-form label {
+        width: 150px;
+        display: inline-block;
+    }
+
+    .popup-form input[type=checkbox], .popup-form input[type=submit]{
+        width: auto;
+    }  
+
+menu>ul>li {
+    display: inline;
+}
+
+    menu > ul > li:after {
+        content: ' |';
+    }
+
+    menu > ul > li:last-of-type:after {
+        content:"";
+    }

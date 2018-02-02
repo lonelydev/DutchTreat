@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Dutch Treat : @ViewBag.Title</title>
+  <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+  <header>Welcome to Dutch Treat!</header>
+  <menu type="toolbar">
+    <ul>
+      @* The same thing can be achieved using tag helpers
+        that have been added in _ViewImports.html
+    <li><a href="/">Home</a></li>
+    <li><a href="/app/contact">Contact</a></li>
+    <li><a href="/app/about">About</a></li>
+      *@
+      <li><a asp-controller="App" asp-action="Index">Home</a></li>
+      <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
+      <li><a asp-controller="App" asp-action="About">About</a></li>
+
+    </ul>
+  </menu>
+  <section>
+    <h2>@ViewBag.Title</h2>
+    @RenderBody()
+  </section>
+  <footer>Copyright 2018 Dutch Treat LLC</footer>
+  
+  <!-- javascript generally has stuff that manipulates contents on the website. hence load it towards the end of the page. -->
+  <script src="~/lib/jQuery/dist/jquery.min.js"></script>
+  <script src="~/js/index.js"></script>
+</body>
+</html>

@@ -12,6 +12,10 @@ namespace DutchTreat
 {
     public class Program
     {
+        /// <summary>
+        /// Just like a console app it is self hosted. 
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();

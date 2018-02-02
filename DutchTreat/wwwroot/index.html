@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Dutch Treat</title>
+  <link href="css/site.css" rel="stylesheet" />
+</head>
+<body>
+  <h2>Dutch Treat!</h2>
+  <div class="product-info">
+    <img src="img/VanGogh.jpg" />
+    <h3>Mug</h3>
+    <ul class="product-props">
+      <li>Price: $9.99</li>
+      <li>Artist: Van Gogh</li>
+      <li>Title:</li>
+      <li>Description: Self Portrait</li>
+    </ul>
+    <button id="buyButton">Buy</button>
+  </div>
+  <!-- Forms are used to fetch information from the user -->
+  <div id="theForm">
+    <form>
+      <label>Your name:</label><br />
+      <input /><br />
+      <label>Email</label><br />
+      <input type="email" /><br />
+      <label>Subject</label><br />
+      <input /><br />
+      <label>Message</label><br />
+      <textarea rows="4"></textarea><br />
+      <input type="submit" value="Send Message" />
+    </form>
+  </div>
+
+  <div>
+    <div id="loginToggle">Login</div>
+    <form class="popup-form">
+      <div>
+        <label>Username:</label>
+        <input />
+      </div>
+      <div>
+        <label>Password:</label>
+        <input type="password"/>
+      </div>
+      <div>
+        <input type="checkbox"/>
+        <label>Remember me?</label><br />
+      </div>
+    </form>    
+  </div>
+
+  <!-- javascript generally has stuff that manipulates contents on the website. hence load it towards the end of the page. -->
+  <script src="lib/jQuery/dist/jquery.min.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
