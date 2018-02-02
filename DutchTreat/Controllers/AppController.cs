@@ -23,8 +23,18 @@ namespace DutchTreat.Controllers
         [HttpGet("contact")]
         public IActionResult Contact()
         {
-            //throw new InvalidOperationException("Fuck it Error");
-            ViewBag.Title = "Contact Us";
+            //throw new InvalidOperationException("Fuck it Error");            
+            return View();
+        }
+
+        /// <summary>
+        /// Contact form will post information from the form.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("contact")]
+        public IActionResult Contact(object model)
+        {            
             return View();
         }
 
