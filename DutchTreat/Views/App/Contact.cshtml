@@ -7,26 +7,39 @@
   <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
   <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
-  <div class="col-md-6 col-md-offset-3">
-    <div class="well">
-      <form method="post">
-        <label asp-for="Name">Your name:</label><br />
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
-        <br />
+<div class="col-md-6 col-md-offset-3">
+  <div class="well">
+    <form method="post">
+      <div asp-validation-summary="ModelOnly"></div>
+
+      <div class="form-group">
+        <label asp-for="Name">Your name:</label>
+        <input asp-for="Name" class="form-control"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
         <label asp-for="Email">Email</label><br />
-        <input asp-for="Email" type="email" />
-        <span asp-validation-for="Email"></span>
-        <br />
+        <input asp-for="Email" type="email" class="form-control"/>
+        <span asp-validation-for="Email" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
         <label asp-for="Subject">Subject</label><br />
-        <input asp-for="Subject" />
-        <span asp-validation-for="Subject"></span>
-        <br />
+        <input asp-for="Subject" class="form-control"/>
+        <span asp-validation-for="Subject" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
         <label asp-for="Message">Message</label><br />
-        <textarea rows="4" asp-for="Message"></textarea>
-        <span asp-validation-for="Message"></span>
-        <br />
-        <input type="submit" value="Send Message" />
-      </form>
-    </div>
+        <textarea rows="4" asp-for="Message" class="form-control"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+      </div>
+
+      <div class="form-group">
+        <input type="submit" value="Send Message" class="btn btn-primary"/>
+        <div class="text-success">@ViewBag.UserMessage</div>
+      </div>
+    </form>
   </div>
+</div>
