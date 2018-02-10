@@ -1,0 +1,11 @@
+﻿
+@* this is not necessary but it gives intellisense *@
+@model IEnumerable<Product>
+
+<h1>Shop</h1>
+
+<p>Count: @Model.Count()</p>
+@foreach (var p in Model)
+{
+  <li>p.Title</li>
+}
