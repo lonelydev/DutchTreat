@@ -1,13 +1,23 @@
-﻿
-@* this is not necessary but it gives intellisense *@
+﻿@* this is not necessary but it gives intellisense *@
 @model IEnumerable<Product>
 
 <h1>Shop</h1>
 
 <p>Count: @Model.Count()</p>
-<ul>
-  @foreach (var p in Model)
-  {
-    <li> @p.Title </li>
-  }
-</ul>
+
+@foreach (var p in Model)
+{
+  <div class="col-md-3">
+    <div class="well well-sm">
+      <img src="~/img/@(p.ArtId).jpg" class="img-responsive" alt="@p.Title" />
+      <h3> @p.Category - @p.Size </h3>
+      <ul class="product-props">
+        <li>Price: @p.Price </li>
+        <li>Artist: @p.Artist </li>
+        <li>Title: @p.Title </li>
+        <li>Description: @p.ArtDescription </li>
+      </ul>
+      <button id="buyButton" class="btn btn-success">Buy</button>
+    </div>
+  </div>
+}
