@@ -22,6 +22,15 @@ namespace DutchTreat
       _config = config;
     }
 
+    /// <summary>
+    /// Scoped service vs Transient service
+    /// Transient - services that are created as needed, they are usually 
+    /// stateless
+    /// Scoped - DBContext is by default added as this. Cached and reused within
+    /// scope. With each request, a scope is begun and ended.
+    /// Singleton - created once and shared throughout the application
+    /// </summary>
+    /// <param name="services"></param>
     // This method gets called by the runtime. Use this method to add services to the container.
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
@@ -32,7 +41,7 @@ namespace DutchTreat
       //services.AddScoped - lives for the length of request
       //services.AddSingleton - lives for as long as the program is alive
       services.AddTransient<IMailService, NullMailService>();
-      //support for real mail service
+      services.AddTransient<DutchSeeder>();
 
       /*Requires to use Dependency Injection!*/
       services.AddMvc();
@@ -70,11 +79,22 @@ namespace DutchTreat
       app.UseStaticFiles();
       app.UseMvc(cfg =>
      {
-             /* default behaviour is to direct the site to App controller's Index view*/
+       /* default behaviour is to direct the site to App controller's Index view*/
        cfg.MapRoute("Default",
                  "{controller}/{action}/{id?}",
                  new { controller = "App", Action = "Index" });
      });
+
+      // Only do seeding in development. protect production
+      if (env.IsDevelopment())
+      {
+        using (var scope = app.ApplicationServices.CreateScope())
+        {
+          //creates a dutchseeder instance with prerequisites if any
+          var seeder = scope.ServiceProvider.GetService<DutchSeeder>();
+          seeder.Seed();
+        }
+      }
     }
   }
 }
