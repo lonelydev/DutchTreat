@@ -5,7 +5,9 @@
 <h1>Shop</h1>
 
 <p>Count: @Model.Count()</p>
-@foreach (var p in Model)
-{
-  <li>p.Title</li>
-}
+<ul>
+  @foreach (var p in Model)
+  {
+    <li> @p.Title </li>
+  }
+</ul>
