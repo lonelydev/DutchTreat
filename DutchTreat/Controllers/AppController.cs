@@ -13,12 +13,12 @@ namespace DutchTreat.Controllers
   public class AppController : Controller
   {
     private readonly IMailService _mailService;
-    private readonly DutchContext _dutchContext;
+    private readonly IDutchRepository _dutchRepository;
 
-    public AppController(IMailService mailService, DutchContext context)
+    public AppController(IMailService mailService, IDutchRepository dutchRepository)
     {
       _mailService = mailService;
-      _dutchContext = context;
+      _dutchRepository = dutchRepository;
     }
     /// <summary>
     /// The name of this method is the name of the View file. 
@@ -64,8 +64,8 @@ namespace DutchTreat.Controllers
 
     public IActionResult Shop()
     {
-      var results = _dutchContext.Products.OrderBy(p => p.Category);
-      return View(results.ToList());
+      var results = _dutchRepository.GetAllProducts();
+      return View(results);
     }
   }
 }
