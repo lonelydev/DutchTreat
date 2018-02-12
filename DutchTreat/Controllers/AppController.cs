@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DutchTreat.Data;
+﻿using DutchTreat.Data;
 using DutchTreat.Services;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
