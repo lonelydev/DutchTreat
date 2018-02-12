@@ -17,6 +17,11 @@ namespace DutchTreat.Data
       _logger = logger;
     }
 
+    public void AddEntity(object model)
+    {
+      _ctx.Add(model);
+    }
+
     /// <summary>
     /// Order refers to OrderItem refers to Order. 
     /// This would then result in self referencing errors. 
