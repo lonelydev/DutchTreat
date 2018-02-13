@@ -59,9 +59,10 @@ namespace DutchTreat.Data
       return _ctx.Products.Where(p => p.Category == category).ToList();
     }
 
-    public int SaveAll()
+    public bool SaveAll()
     {
-      return _ctx.SaveChanges();
+      _ctx.SaveChanges();
+      return true;
     }
   }
 }

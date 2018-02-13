@@ -1,7 +1,9 @@
 ﻿using DutchTreat.Data;
 using DutchTreat.Data.Entities;
+using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace DutchTreat.Controllers
 {
@@ -54,25 +56,53 @@ namespace DutchTreat.Controllers
     /// <param name="model"></param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody]Order model)
+    public IActionResult Post([FromBody]OrderViewModel model)
     {
       //add the order to the database
       try
       {
-        _dutchRepository.AddEntity(model);
-        _dutchRepository.SaveAll();
+        if (ModelState.IsValid)
+        {
+          var newOrder = new Order()
+          {
+            OrderDate = model.OrderDate,
+            OrderNumber = model.OrderNumber,
+            Id = model.OrderId
+          };
+          if (newOrder.OrderDate == DateTime.MinValue)
+          {
+            newOrder.OrderDate = DateTime.Now;
+          }
 
-        // in http when you create an entity, you return Created not just Ok.
-        // you also need to return the entity with its url. 
-        // done as part of HATEOAS
-        return Created($"/api/orders/{model.Id}", model);
+          _dutchRepository.AddEntity(newOrder);
+
+          if (_dutchRepository.SaveAll())
+          {
+            var vm = new OrderViewModel()
+            {
+              OrderId = newOrder.Id,
+              OrderDate = newOrder.OrderDate,
+              OrderNumber = newOrder.OrderNumber
+            };
+
+            // in http when you create an entity, you return Created not just Ok.
+            // you also need to return the entity with its url. 
+            // done as part of HATEOAS
+            return Created($"/api/orders/{vm.OrderId}", vm);
+          }
+        }
+        else
+        {
+          return BadRequest(ModelState);
+        }
+
       }
       catch (System.Exception ex)
       {
 
         _logger.LogError($"Failed to add a new order: {ex}");
       }
-      return BadRequest("Failed to save the order");
+      return BadRequest("Failed to add a new order");
     }
   }
 }
