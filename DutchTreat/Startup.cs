@@ -1,4 +1,5 @@
-﻿using DutchTreat.Data;
+﻿using AutoMapper;
+using DutchTreat.Data;
 using DutchTreat.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,8 @@ namespace DutchTreat
       // Please make db context as part of the service collection 
       // So that i can access it from a controller
       services.AddDbContext<DutchContext>(cfg => cfg.UseSqlServer(_config.GetConnectionString("DutchConnectionString")));
+
+      services.AddAutoMapper();
       //services.AddScoped - lives for the length of request
       //services.AddSingleton - lives for as long as the program is alive
       services.AddTransient<IMailService, NullMailService>();

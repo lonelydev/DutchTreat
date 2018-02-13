@@ -1,9 +1,11 @@
-﻿using DutchTreat.Data;
+﻿using AutoMapper;
+using DutchTreat.Data;
 using DutchTreat.Data.Entities;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace DutchTreat.Controllers
 {
@@ -12,11 +14,13 @@ namespace DutchTreat.Controllers
   {
     private readonly IDutchRepository _dutchRepository;
     private readonly ILogger<OrdersController> _logger;
+    private readonly IMapper _mapper;
 
-    public OrdersController(IDutchRepository dutchRepository, ILogger<OrdersController> logger)
+    public OrdersController(IDutchRepository dutchRepository, ILogger<OrdersController> logger, IMapper mapper)
     {
       _dutchRepository = dutchRepository;
       _logger = logger;
+      _mapper = mapper;
     }
 
     [HttpGet]
@@ -24,7 +28,7 @@ namespace DutchTreat.Controllers
     {
       try
       {
-        return Ok(_dutchRepository.GetAllOrders());
+        return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(_dutchRepository.GetAllOrders()));
       }
       catch (System.Exception ex)
       {
@@ -39,7 +43,8 @@ namespace DutchTreat.Controllers
       try
       {
         var order = _dutchRepository.GetOrderById(id);
-        if (order != null) return Ok(order);
+        //remember to add mappings configuration.
+        if (order != null) return Ok(_mapper.Map<Order, OrderViewModel>(order));
         return NotFound();
       }
       catch (System.Exception ex)
@@ -63,12 +68,7 @@ namespace DutchTreat.Controllers
       {
         if (ModelState.IsValid)
         {
-          var newOrder = new Order()
-          {
-            OrderDate = model.OrderDate,
-            OrderNumber = model.OrderNumber,
-            Id = model.OrderId
-          };
+          var newOrder = _mapper.Map<OrderViewModel, Order>(model);
           if (newOrder.OrderDate == DateTime.MinValue)
           {
             newOrder.OrderDate = DateTime.Now;
@@ -78,17 +78,12 @@ namespace DutchTreat.Controllers
 
           if (_dutchRepository.SaveAll())
           {
-            var vm = new OrderViewModel()
-            {
-              OrderId = newOrder.Id,
-              OrderDate = newOrder.OrderDate,
-              OrderNumber = newOrder.OrderNumber
-            };
+            var vm = _mapper.Map<Order, OrderViewModel>(newOrder);
 
             // in http when you create an entity, you return Created not just Ok.
             // you also need to return the entity with its url. 
             // done as part of HATEOAS
-            return Created($"/api/orders/{vm.OrderId}", vm);
+            return Created($"/api/orders/{newOrder.Id}", _mapper.Map<Order, OrderViewModel>(newOrder));
           }
         }
         else
