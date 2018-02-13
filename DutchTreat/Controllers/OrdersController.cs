@@ -23,12 +23,17 @@ namespace DutchTreat.Controllers
       _mapper = mapper;
     }
 
+    /// <summary>
+    /// Optional bool for query string. 
+    /// </summary>
+    /// <param name="includeItem"></param>
+    /// <returns></returns>
     [HttpGet]
-    public IActionResult Get()
+    public IActionResult Get(bool includeItem = true)
     {
       try
       {
-        return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(_dutchRepository.GetAllOrders()));
+        return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(_dutchRepository.GetAllOrders(includeItem)));
       }
       catch (System.Exception ex)
       {
