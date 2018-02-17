@@ -1,6 +1,7 @@
 ﻿using DutchTreat.Data;
 using DutchTreat.Services;
 using DutchTreat.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DutchTreat.Controllers
@@ -57,6 +58,14 @@ namespace DutchTreat.Controllers
       return View();
     }
 
+    /// <summary>
+    /// This tells asp.net that 
+    /// anyone going here needs to be authorized. somehow. 
+    /// To make this work, however, you have to include some settings. Else you will 
+    /// end up with InvalidOperationException: No authenticationScheme was specified, and there was no DefaultChallengeScheme found.
+    /// </summary>
+    /// <returns></returns>
+    [Authorize]
     public IActionResult Shop()
     {
       var results = _dutchRepository.GetAllProducts();

@@ -14,7 +14,9 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
   </ItemGroup>
 
+  <!--Adding dotnet tools support. pointing to nuget package reference-->
   <ItemGroup>
+    <!--This enables us to use command line and type dotnet ef and run migrations and other things-->
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
 
