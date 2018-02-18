@@ -1,28 +1,13 @@
 ﻿@* this is not necessary but it gives intellisense *@
 @model IEnumerable<Product>
 @section Scripts {
-  <script src="~/ts/storecustomer.js"></script>
-  <script src="~/ts/main.js"></script>
+  <script src="~/clientapp/dist/inline.bundle.js"></script>
+  <script src="~/clientapp/dist/polyfills.bundle.js"></script>
+  <script src="~/clientapp/dist/styles.bundle.js"></script>
+  <script src="~/clientapp/dist/vendor.bundle.js"></script>
+  <script src="~/clientapp/dist/main.bundle.js"></script>
 }
 
 
 <h1>Shop</h1>
-
-<p>Count: @Model.Count()</p>
-
-@foreach (var p in Model)
-{
-  <div class="col-md-3">
-    <div class="well well-sm">
-      <img src="~/img/@(p.ArtId).jpg" class="img-responsive" alt="@p.Title" />
-      <h3> @p.Category - @p.Size </h3>
-      <ul class="product-props">
-        <li>Price: @p.Price </li>
-        <li>Artist: @p.Artist </li>
-        <li>Title: @p.Title </li>
-        <li>Description: @p.ArtDescription </li>
-      </ul>
-      <button id="buyButton" class="btn btn-success">Buy</button>
-    </div>
-  </div>
-}
+<the-shop></the-shop>

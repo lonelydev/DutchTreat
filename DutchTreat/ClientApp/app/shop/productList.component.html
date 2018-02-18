@@ -1,0 +1,12 @@
+﻿<div class="row">
+  <ul>
+    <!-- lets use some directives and do some databinding 
+      let us also use filters for currency 
+      true says use symbol instead of string.
+      pluralsight.com/courses/angular-2-getting-started-updated
+      for more in-depth coverage
+      pluralsight.com/courses/angular-cli
+      -->
+    <li *ngFor="let p of products"> {{ p.title }} : {{ p.price | currency:"USD":true }}</li>
+  </ul>
+</div>

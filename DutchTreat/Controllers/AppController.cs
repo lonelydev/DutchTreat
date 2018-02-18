@@ -63,13 +63,13 @@ namespace DutchTreat.Controllers
     /// anyone going here needs to be authorized. somehow. 
     /// To make this work, however, you have to include some settings. Else you will 
     /// end up with InvalidOperationException: No authenticationScheme was specified, and there was no DefaultChallengeScheme found.
+    /// Just returning view as the clientapp will load directly from api
     /// </summary>
     /// <returns></returns>
     [Authorize]
     public IActionResult Shop()
     {
-      var results = _dutchRepository.GetAllProducts();
-      return View(results);
+      return View();
     }
   }
 }

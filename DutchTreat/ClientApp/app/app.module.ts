@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { ProductList } from "./shop/productList.component";
 
 // essential file, this is the bootstrapping file. 
 // there isn't really any code here apart from what's below
@@ -13,7 +14,8 @@ import { AppComponent } from './app.component';
 // 
 @NgModule({
   declarations: [
-    AppComponent // the thing we are going to use on a page
+    AppComponent, // the thing we are going to use on a page
+    ProductList
   ],
   imports: [
     BrowserModule  //how to host it on a browser page?! wtf
