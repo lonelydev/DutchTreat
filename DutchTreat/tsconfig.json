@@ -1,8 +1,23 @@
 {
-  // ** is everything inside and subdirectory that directory and
-  "include": [ "wwwroot/ts/**/*.ts" ],
+  "compileOnSave": false,
+  "include": [
+    "./ClientApp", 
+    "./wwwroot/ts"
+  ],
   "compilerOptions": {
-    "target": "es5", // most modern browsers support that
-    "sourceMap": true
+    "outDir": "./wwwroot/clientapp/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ]
   }
 }
