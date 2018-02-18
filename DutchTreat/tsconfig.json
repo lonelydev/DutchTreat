@@ -1,0 +1,8 @@
+{
+  // ** is everything inside and subdirectory that directory and
+  "include": [ "wwwroot/ts/**/*.ts" ],
+  "compilerOptions": {
+    "target": "es5", // most modern browsers support that
+    "sourceMap": true
+  }
+}
