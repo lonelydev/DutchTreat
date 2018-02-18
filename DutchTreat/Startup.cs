@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace DutchTreat
 {
@@ -48,6 +50,17 @@ namespace DutchTreat
         cfg.User.RequireUniqueEmail = true;
       }).AddEntityFrameworkStores<DutchContext>();
 
+      // cookie auth and token auth
+      services.AddAuthentication().AddCookie().AddJwtBearer(
+        cfg =>
+        cfg.TokenValidationParameters = new TokenValidationParameters()
+        {
+          ValidIssuer = _config["Tokens:Issuer"],
+          ValidAudience = _config["Tokens:Audience"],
+          IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]))
+        }
+      );
+
       // Please make db context as part of the service collection 
       // So that i can access it from a controller
       services.AddDbContext<DutchContext>(cfg => cfg.UseSqlServer(_config.GetConnectionString("DutchConnectionString")));
@@ -63,7 +76,9 @@ namespace DutchTreat
       // add IDutchRepository with implementation DutchRepository
       services.AddScoped<IDutchRepository, DutchRepository>();
 
-      /*Requires to use Dependency Injection!*/
+      /*Requires to use Dependency Injection!
+       * how to enable https in production
+       */
       services.AddMvc(opt =>
       {
         if (_environment.IsProduction())

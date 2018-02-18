@@ -2,25 +2,35 @@
 using DutchTreat.Data;
 using DutchTreat.Data.Entities;
 using DutchTreat.ViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DutchTreat.Controllers
 {
   [Route("api/[Controller]")]
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class OrdersController : Controller
   {
     private readonly IDutchRepository _dutchRepository;
     private readonly ILogger<OrdersController> _logger;
     private readonly IMapper _mapper;
+    private readonly UserManager<StoreUser> _userManager;
 
-    public OrdersController(IDutchRepository dutchRepository, ILogger<OrdersController> logger, IMapper mapper)
+    public OrdersController(IDutchRepository dutchRepository,
+      ILogger<OrdersController> logger,
+      IMapper mapper,
+      UserManager<StoreUser> userManager)
     {
       _dutchRepository = dutchRepository;
       _logger = logger;
       _mapper = mapper;
+      this._userManager = userManager;
     }
 
     /// <summary>
@@ -31,11 +41,18 @@ namespace DutchTreat.Controllers
     [HttpGet]
     public IActionResult Get(bool includeItem = true)
     {
+      // now that we have added jwt authentication we can also try and retrieve 
+      // orders that are related to a particular user. 
       try
       {
-        return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(_dutchRepository.GetAllOrders(includeItem)));
+        // to retrieve user information, we use the User.Identity.Name as the account controller 
+        // has already authenticated and authorized the user. 
+        // then we have also added the [Authorize] attribute to the class
+        var userName = User.Identity.Name;
+        var results = _dutchRepository.GetAllOrdersByUser(userName, includeItem);
+        return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(results));
       }
-      catch (System.Exception ex)
+      catch (Exception ex)
       {
         _logger.LogError($"Failed to get orders: {ex}");
         return BadRequest("Failed to get orders");
@@ -47,12 +64,12 @@ namespace DutchTreat.Controllers
     {
       try
       {
-        var order = _dutchRepository.GetOrderById(id);
+        var order = _dutchRepository.GetOrderById(User.Identity.Name, id);
         //remember to add mappings configuration.
         if (order != null) return Ok(_mapper.Map<Order, OrderViewModel>(order));
         return NotFound();
       }
-      catch (System.Exception ex)
+      catch (Exception ex)
       {
         _logger.LogError($"Failed to get order: {ex}");
         return BadRequest("Failed to get order");
@@ -66,7 +83,7 @@ namespace DutchTreat.Controllers
     /// <param name="model"></param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody]OrderViewModel model)
+    public async Task<IActionResult> Post([FromBody]OrderViewModel model)
     {
       //add the order to the database
       try
@@ -78,6 +95,9 @@ namespace DutchTreat.Controllers
           {
             newOrder.OrderDate = DateTime.Now;
           }
+
+          var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+          newOrder.User = currentUser;
 
           _dutchRepository.AddEntity(newOrder);
 
