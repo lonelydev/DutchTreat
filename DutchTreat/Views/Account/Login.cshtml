@@ -1,0 +1,45 @@
+﻿@* Adding view model LoginViewModel then you can use TagHelpers with form elements *@
+@model LoginViewModel
+@{
+  ViewBag.Title = "Contact Us";
+}
+
+@section scripts {
+  <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+@* I'm going to start using columns so reset the columns above me. *@
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    @* as we are using post to send form data mention it on the form element *@
+    <form method="post">
+      @* Display near the top of the form only include ModelOnly errors and rest of the errors
+        will be shown in the corresponding spans.
+      *@
+      <div asp-validation-summary="ModelOnly"></div>
+      <div class="form-group">
+        <label asp-for="UserName">Username</label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-warning"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-warning"></span>
+      </div>
+
+      <div class="form-group">
+        @* having form-control as the class of the checkbox makes the checkbox takes up one whole line like other input elements
+          This inorder to make it render the way we would expect it to, like right next to Remember me, we choose checkbox-inline as the class instead.
+        *@
+        <input asp-for="RememberMe" type="checkbox" class="checkbox-inline" />
+        <label asp-for="RememberMe">Remember me?</label>
+        <span asp-validation-for="RememberMe" class="text-warning"></span>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Login" class="btn btn-success" />
+      </div>
+    </form>
+  </div>
+</div>
