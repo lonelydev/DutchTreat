@@ -3,8 +3,7 @@
     //(function () {
     var x = 0;
     var s = "";
-    console.log("hello pluralsight!");
-
+    
     var theForm = $("#theForm");
     theForm.hide();
 

@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /DutchTreat/wwwroot/lib
+/DutchTreat/wwwroot/clientapp/dist
+/DutchTreat/wwwroot/clientapp/out-tsc
