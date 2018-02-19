@@ -1,0 +1,11 @@
+﻿.product-info img{
+    max-width: 100px; /* no need to be too big*/
+    float: left; /* keep the picture left aligned */
+    margin: 0 2px;/*room between product and info of product*/
+    border: solid 1px black;
+}
+
+.product-info .product-name {
+    font-size: large;
+    font-weight: bold;
+}
