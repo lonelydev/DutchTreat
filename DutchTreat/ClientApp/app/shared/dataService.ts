@@ -7,6 +7,12 @@ import { Product } from "./product";
 
 import 'rxjs/add/operator/map';
 
+
+import { Order, OrderItem } from "./order";
+// same result as above, but with a namespace
+// but you have to access them with orders.Order and orders.OrderItem
+//import * as orders from "./order";
+
 /**
  * Decorating with Injectable to tell angular when you inject
  * DataService, it needs its dependencies.
@@ -46,5 +52,25 @@ export class DataService {
   public loadProducts(): Observable<Product[]> {
     return this.http.get("/api/products")
       .map((result: Response) => this.products = result.json());
+  }
+
+  public order: Order = new Order();
+
+  public AddToOrder(product: Product) {    
+
+    let item: OrderItem;
+    item = new OrderItem();
+
+    item.productId = product.id;
+    item.productArtist = product.artist;
+    item.productCategory = product.category;
+    item.productArtId = product.artId;
+    item.productTitle = product.title;
+    item.productSize = product.size;
+    item.unitPrice = product.price;
+    item.quantity = 1;
+
+    this.order.items.push(item);
+
   }
 }
