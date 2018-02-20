@@ -1,12 +1,11 @@
 ﻿<div class="row">
-  <ul>
-    <!-- lets use some directives and do some databinding 
-      let us also use filters for currency 
-      true says use symbol instead of string.
-      pluralsight.com/courses/angular-2-getting-started-updated
-      for more in-depth coverage
-      pluralsight.com/courses/angular-cli
-      -->
-    <li *ngFor="let p of products"> {{ p.title }} : {{ p.price | currency:"USD":true }}</li>
-  </ul>
+  <div class="product-info col-md-4 well well" *ngFor="let p of products">
+    <img src="/img/{{p.artId}}.jpg" class="img-responsive" alt="{{p.title}}" />
+    <div class="product-name">{{p.category}} - {{p.size}}</div>
+    <div><strong>Price:</strong> {{ p.price | currency:"USD":true }}</div>
+    <div><strong>Artist:</strong> {{p.artist}}</div>
+    <div><strong>Title:</strong> {{ p.title }}</div>
+    <div><strong>Description:</strong> {{p.artDescription}}</div>
+    <button id="buyButton" class="btn btn-success btn-sm pull-right">Buy</button>
+  </div>
 </div>

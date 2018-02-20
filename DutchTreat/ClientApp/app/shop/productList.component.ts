@@ -6,7 +6,7 @@ import { Product } from "../shared/product";
 @Component({
   selector: "product-list",
   templateUrl: "productList.component.html",
-  styleUrls: []
+  styleUrls: [ "productList.component.css" ] //add a style file
 })
   /* OnInit interface says, once you are ready for it, call my method
    * to do all my bookkeeping that angular has setup.
