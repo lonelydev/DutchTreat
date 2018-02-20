@@ -7,6 +7,8 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { ProductList } from "./shop/productList.component";
+import { Cart } from "./shop/cart.component";
+
 import { DataService } from "./shared/dataService";
 import { HttpModule } from '@angular/http';
 
@@ -18,7 +20,8 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent, // the thing we are going to use on a page
-    ProductList
+    ProductList,
+    Cart
   ],
   imports: [
     BrowserModule,  //how to host it on a browser page?! wtf
