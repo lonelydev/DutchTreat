@@ -8,9 +8,22 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { ProductList } from "./shop/productList.component";
 import { Cart } from "./shop/cart.component";
+import { Shop } from "./shop/shop.component";
+import { Checkout } from "./checkout/checkout.component";
 
 import { DataService } from "./shared/dataService";
 import { HttpModule } from '@angular/http';
+
+
+import { RouterModule } from "@angular/router";
+
+
+
+let routes = [
+  //specify pattern or path and then a component 
+  { path: "", component: Shop },
+  { path: "checkout", component: Checkout }
+];
 
 // essential file, this is the bootstrapping file. 
 // there isn't really any code here apart from what's below
@@ -21,11 +34,20 @@ import { HttpModule } from '@angular/http';
   declarations: [
     AppComponent, // the thing we are going to use on a page
     ProductList,
-    Cart
+    Cart, 
+    Shop, 
+    Checkout
   ],
   imports: [
     BrowserModule,  //how to host it on a browser page?! wtf
-    HttpModule, 
+    HttpModule,
+    RouterModule.forRoot(routes, {
+      // as we aren't really building an spa
+      // path is after a hash in the url
+      // only enhancing one single page
+      useHash: true, 
+      enableTracing: false //for debugging routes
+    }),
     HttpClientModule //shawn wildermuth initially used httpclientmodule
     // then without warning in the next video, switched to using httpmodule!
   ],
