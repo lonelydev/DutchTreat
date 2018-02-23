@@ -1,4 +1,5 @@
 ﻿<div class="row">
+  <div *ngIf="errorMessage" class="alert alert-warning">{{errorMessage}}</div>
   <h3>Confirm Order</h3>
   <table class="table table-bordered table-hover">
     <tr *ngFor="let o of data.order.items">

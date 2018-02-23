@@ -10,19 +10,22 @@ import { ProductList } from "./shop/productList.component";
 import { Cart } from "./shop/cart.component";
 import { Shop } from "./shop/shop.component";
 import { Checkout } from "./checkout/checkout.component";
+import { Login } from "./login/login.component";
 
 import { DataService } from "./shared/dataService";
 import { HttpModule } from '@angular/http';
 
-
 import { RouterModule } from "@angular/router";
+
+import { FormsModule } from "@angular/forms";
 
 
 
 let routes = [
   //specify pattern or path and then a component 
   { path: "", component: Shop },
-  { path: "checkout", component: Checkout }
+  { path: "checkout", component: Checkout },
+  { path: "login", component: Login }
 ];
 
 // essential file, this is the bootstrapping file. 
@@ -36,11 +39,13 @@ let routes = [
     ProductList,
     Cart, 
     Shop, 
-    Checkout
+    Checkout,
+    Login
   ],
   imports: [
     BrowserModule,  //how to host it on a browser page?! wtf
     HttpModule,
+    FormsModule,
     RouterModule.forRoot(routes, {
       // as we aren't really building an spa
       // path is after a hash in the url

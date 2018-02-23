@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div *ngIf="errorMessage" class="alert alert-warning">{{errorMessage}}</div>
+    <!-- use binding here to make login work 
+      [attr] =>  pushes data from component to form.
+      (attr) => event that calls back into the component.
+      [(attr)] => two way binding is denoted like this      
+
+      Form validation using required attribute and angular the syntax:
+      #whatyouwanttovalidate
+      novalidate tells the browser not to do any default validation and let angular do the work.
+
+      -->
+    <form (submit)="onLogin()" #theForm="ngForm" novalidate>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" [(ngModel)]="creds.username" #username="ngModel" required/>
+        <div class="text-danger" *ngIf="username.touched && username.invalid && username.errors.required">Username is required</div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="creds.password" #password="ngModel" required />
+        <div class="text-danger" *ngIf="password.touched && password.invalid && password.errors.required">Password is required</div>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Login" [disabled]="theForm.invalid"/>
+        <a routerLink="/" class="btn btn-default">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
