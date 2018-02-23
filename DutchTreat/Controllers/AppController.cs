@@ -1,7 +1,6 @@
 ﻿using DutchTreat.Data;
 using DutchTreat.Services;
 using DutchTreat.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DutchTreat.Controllers
@@ -65,8 +64,7 @@ namespace DutchTreat.Controllers
     /// end up with InvalidOperationException: No authenticationScheme was specified, and there was no DefaultChallengeScheme found.
     /// Just returning view as the clientapp will load directly from api
     /// </summary>
-    /// <returns></returns>
-    [Authorize]
+    /// <returns></returns>    
     public IActionResult Shop()
     {
       return View();

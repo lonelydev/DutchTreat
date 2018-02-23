@@ -22,6 +22,20 @@ namespace DutchTreat.Data
       _ctx.Add(model);
     }
 
+    public void AddOrder(Order newOrder)
+    {
+      // convert new products to lookup of product 
+      // we don't want every order to automatically try and add 
+      // the same product to the db multiple times.
+      foreach (var item in newOrder.Items)
+      {
+        //the products visible to users should exist in the database anyway
+        item.Product = _ctx.Products.Find(item.Product.Id);
+      }
+
+      AddEntity(newOrder);
+    }
+
     /// <summary>
     /// Order refers to OrderItem refers to Order. 
     /// This would then result in self referencing errors. 
