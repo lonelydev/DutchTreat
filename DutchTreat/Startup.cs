@@ -81,7 +81,7 @@ namespace DutchTreat
        */
       services.AddMvc(opt =>
       {
-        if (_environment.IsProduction())
+        if (_environment.IsProduction() && _config["DisableSSL"] != "true")
         {
           opt.Filters.Add(new RequireHttpsAttribute());
         }
