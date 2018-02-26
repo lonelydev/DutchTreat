@@ -4,7 +4,7 @@
   },
   "DisableSSL": false,
   "ConnectionStrings": {
-    "DutchConnectionString": "server=(localdb)\\ProjectsV13;Database=DutchTreatDb;Integrated Security=true;MultipleActiveResultSets=true;"
+    "DutchConnectionString": "Server=tcp:egk-dutch-treat-db-server.database.windows.net,1433;Database=DutchTreatDb;Persist Security Info=False;User ID=egk-dutch-treat-admin;Password=D1u2T3c4H;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   },
   "Logging": {
     "LogLevel": {
