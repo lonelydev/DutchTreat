@@ -3,9 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <title>Dutch Treat : @ViewBag.Title</title>
-  <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-  <link href="~/css/site.css" rel="stylesheet" />
+  <environment names="Development">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+  </environment>
+
+  <environment names="Staging,Production">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+  </environment>
+
 </head>
 <body>
   <div class="navbar navbar-inverse">
@@ -43,9 +52,21 @@
     <div class="text-center">Copyright 2018 Dutch Treat LLC</div>
   </footer>
   <!-- javascript generally has stuff that manipulates contents on the website. hence load it towards the end of the page. -->
-  <script src="~/lib/jQuery/dist/jquery.min.js"></script>
-  <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="~/js/index.js"></script>
+  <environment names="Development">
+    <script src="~/lib/jQuery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/index.js"></script>
+  </environment>
+  <environment names="Staging,Production">
+    <script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"
+            asp-fallback-src="~/lib/jQuery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"></script>
+    <script src="~/js/index.js"></script>
+    <script src="~/dist/dutchtreat.min.js" asp-append-version="true"></script>
+  </environment>
   @* scripts section is not required. if one of the pages creates a section called scripts, then put it here in the layout page
 
   *@
