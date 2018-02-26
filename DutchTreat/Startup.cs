@@ -64,6 +64,7 @@ namespace DutchTreat
       // Please make db context as part of the service collection 
       // So that i can access it from a controller
       services.AddDbContext<DutchContext>(cfg => cfg.UseSqlServer(_config.GetConnectionString("DutchConnectionString")));
+      services.BuildServiceProvider().GetService<DutchContext>().Database.Migrate();
       // without mapper.reset, running dotnet ef database drop would fail with the following error:
       // Application startup exception: System.InvalidOperationException: Mapper already initialized. You must call Initialize once per application domain/process.
       Mapper.Reset();
